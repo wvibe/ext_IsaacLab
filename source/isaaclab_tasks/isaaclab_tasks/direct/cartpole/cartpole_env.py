@@ -54,6 +54,14 @@ class CartpoleEnv(DirectRLEnv):
 
     def _apply_action(self) -> None:
         self.cartpole.set_joint_effort_target_index(target=self.actions, joint_ids=self._cart_dof_idx)
+        if self.cfg.wind_torque_max > 0.0:
+            wind = sample_uniform(
+                -self.cfg.wind_torque_max,
+                self.cfg.wind_torque_max,
+                (self.num_envs, 1),
+                self.device,
+            )
+            self.cartpole.set_joint_effort_target_index(target=wind, joint_ids=self._pole_dof_idx)
 
     def _get_observations(self) -> dict:
         obs = torch.cat(

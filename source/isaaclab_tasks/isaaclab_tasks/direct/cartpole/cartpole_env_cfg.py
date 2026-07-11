@@ -87,11 +87,14 @@ class CartpoleEnvCfg(DirectRLEnvCfg):
 
     # reset
     max_cart_pos = 3.0  # the cart is reset if it exceeds that position [m]
-    initial_pole_angle_range = [-0.25, 0.25]  # the range in which the pole angle is sampled from on reset [rad]
+    initial_pole_angle_range = [-0.3, 0.3]  # the range in which the pole angle is sampled from on reset [rad]
 
     # reward scales
     rew_scale_alive = 1.0
-    rew_scale_terminated = -2.0
+    rew_scale_terminated = -5.0
     rew_scale_pole_pos = -1.0
-    rew_scale_cart_vel = -0.01
-    rew_scale_pole_vel = -0.005
+    rew_scale_cart_vel = -0.02
+    rew_scale_pole_vel = -0.01
+
+    # disturbance: random wind torque on the pole [N*m]
+    wind_torque_max = 0.0  # 0 = off; try 2.0 ~ 8.0
