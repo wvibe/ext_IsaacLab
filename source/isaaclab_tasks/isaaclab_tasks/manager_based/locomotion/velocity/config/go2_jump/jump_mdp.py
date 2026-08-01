@@ -186,9 +186,7 @@ class JumpVelocityCommand(UniformVelocityCommand):
         rel_h = self.base_rel_height
         self._jump_armed |= rel_h <= self.cfg.ref_height + self.cfg.arm_height_threshold
         # record the peak relative base height for armed environments
-        self._jump_peak_h = torch.where(
-            self._jump_armed, torch.maximum(self._jump_peak_h, rel_h), self._jump_peak_h
-        )
+        self._jump_peak_h = torch.where(self._jump_armed, torch.maximum(self._jump_peak_h, rel_h), self._jump_peak_h)
 
     def reset(self, env_ids: Sequence[int] | None = None) -> dict[str, float]:
         # finalize the jump-error metric before the base class logs and zeros the metrics
